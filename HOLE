@@ -1,0 +1,13 @@
+select date_trunc('day',block_time) as day, 'ethereum' as chain , count(distinct tx_hash) as transfers from ethereum.logs 
+where contract_address = 0x98f3c9e6E3fAce36bAAd05FE09d375Ef1464288B
+and topic0 = 0x6eb224fb001ed210e379b335e35efe88672a8ce935d981a6896b27ffdf52a3b2
+and topic1 = 0x0000000000000000000000003ee18b2214aff97000d974cf647e7c347e8fa585
+and block_time >= date('2024-01-01')
+group by 1,2
+union all
+select date_trunc('day',block_time) as day, 'polygon' as chain, count(distinct tx_hash) as transfers from polygon.logs 
+where contract_address = 0x7A4B5a56256163F07b2C80A7cA55aBE66c4ec4d7
+and topic0 = 0x6eb224fb001ed210e379b335e35efe88672a8ce935d981a6896b27ffdf52a3b2
+and topic1 = 0x0000000000000000000000005a58505a96d1dbf8df91cb21b54419fc36e93fde
+and block_time >= date('2024-01-01')
+group by 1,2
